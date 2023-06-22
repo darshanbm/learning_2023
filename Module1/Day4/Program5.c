@@ -1,25 +1,33 @@
 #include <stdio.h>
 
+struct Point {
+    int x;
+    int y;
+};
+
+void swapP(struct Point* p1, struct Point* p2) {
+    int temp = p1->x;
+    p1->x = p2->x;
+    p2->x = temp;
+
+    temp = p1->y;
+    p1->y = p2->y;
+    p2->y = temp;
+}
+
 int main() {
-    int array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int size = sizeof(array) / sizeof(array[0]);
+    struct Point point1 = {1, 2};
+    struct Point point2 = {3, 4};
 
-    int sumEvenIndex = 0;  // Sum of elements at even indices
-    int sumOddIndex = 0;   // Sum of elements at odd indices
+    printf("Before swapping:\n");
+    printf("Point 1: (%d, %d)\n", point1.x, point1.y);
+    printf("Point 2: (%d, %d)\n", point2.x, point2.y);
 
-    for (int i = 0; i < size; i++) {
-        if (i % 2 == 0) {
-            sumEvenIndex += array[i];  // Add element at even index to sumEvenIndex
-        } else {
-            sumOddIndex += array[i];   // Add element at odd index to sumOddIndex
-        }
-    }
+    swapP(&point1, &point2);
 
-    int difference = sumEvenIndex - sumOddIndex;
-
-    printf("Sum of elements at even indices: %d\n", sumEvenIndex);
-    printf("Sum of elements at odd indices: %d\n", sumOddIndex);
-    printf("Difference: %d\n", difference);
+    printf("\nAfter swapping:\n");
+    printf("Point 1: (%d, %d)\n", point1.x, point1.y);
+    printf("Point 2: (%d, %d)\n", point2.x, point2.y);
 
     return 0;
 }

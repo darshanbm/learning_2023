@@ -1,37 +1,39 @@
 #include <stdio.h>
 
-void reverseArray(int array[], int size) {
-    int start = 0;
-    int end = size - 1;
+struct Time {
+    int hours;
+    int minutes;
+    int seconds;
+};
 
-    while (start < end) {
-        // Swap elements at start and end indices
-        int temp = array[start];
-        array[start] = array[end];
-        array[end] = temp;
+struct Time calculateTimeDifference(struct Time t1, struct Time t2) {
+    struct Time diff;
 
-        start++;
-        end--;
-    }
+    int t1Seconds = t1.hours * 3600 + t1.minutes * 60 + t1.seconds;
+    int t2Seconds = t2.hours * 3600 + t2.minutes * 60 + t2.seconds;
+
+    int diffSeconds = abs(t1Seconds - t2Seconds);
+
+    diff.hours = diffSeconds / 3600;
+    diffSeconds %= 3600;
+    diff.minutes = diffSeconds / 60;
+    diff.seconds = diffSeconds % 60;
+
+    return diff;
 }
 
 int main() {
-    int array[] = {1, 2, 3, 4, 5};
-    int size = sizeof(array) / sizeof(array[0]);
+    struct Time time1, time2, diff;
 
-    printf("Original array: ");
-    for (int i = 0; i < size; i++) {
-        printf("%d ", array[i]);
-    }
-    printf("\n");
+    printf("Enter time 1 (hours minutes seconds): ");
+    scanf("%d %d %d", &time1.hours, &time1.minutes, &time1.seconds);
 
-    reverseArray(array, size);
+    printf("Enter time 2 (hours minutes seconds): ");
+    scanf("%d %d %d", &time2.hours, &time2.minutes, &time2.seconds);
 
-    printf("Reversed array: ");
-    for (int i = 0; i < size; i++) {
-        printf("%d ", array[i]);
-    }
-    printf("\n");
+    diff = calculateTimeDifference(time1, time2);
+
+    printf("\nDifference: %d hours, %d minutes, %d seconds\n", diff.hours, diff.minutes, diff.seconds);
 
     return 0;
 }

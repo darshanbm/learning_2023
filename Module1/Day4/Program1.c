@@ -1,23 +1,29 @@
 #include <stdio.h>
 
-void calculateSumAverage(int arr[], int size, int *sum, float *average) {
-    *sum = 0;
-    for (int i = 0; i < size; i++) {
-        *sum += arr[i];
-    }
-    *average = (float)(*sum) / size;
-}
+// Structure for representing a box
+struct Box {
+    float length;
+    float width;
+    float height;
+};
 
 int main() {
-    int array[] = {1, 2, 3, 4, 5};
-    int size = sizeof(array) / sizeof(array[0]);
-    int sum;
-    float average;
+    struct Box box;
+    struct Box* boxPtr = &box;
 
-    calculateSumAverage(array, size, &sum, &average);
+    (*boxPtr).length = 2.5;
+    (*boxPtr).width = 3.0;
+    (*boxPtr).height = 4.2;
 
-    printf("Sum: %d\n", sum);
-    printf("Average: %.2f\n", average);
+    boxPtr->length = 2.5;
+    boxPtr->width = 3.0;
+    boxPtr->height = 4.2;
+
+    float volume = boxPtr->length * boxPtr->width * boxPtr->height;
+    float surfaceArea = 2 * (boxPtr->length * boxPtr->width + boxPtr->width * boxPtr->height + boxPtr->height * boxPtr->length);
+
+    printf("Volume: %.2f\n", volume);
+    printf("Total Surface Area: %.2f\n", surfaceArea);
 
     return 0;
 }
